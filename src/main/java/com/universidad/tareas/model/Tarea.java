@@ -32,7 +32,7 @@ public class Tarea {
     public Tarea(Long id, String titulo, String descripcion, Prioridad prioridad,
                  LocalDate fechaLimite, boolean completada) {
         this.id = id;
-        this.titulo = titulo;
+        setTitulo(titulo);
         this.descripcion = descripcion;
         this.prioridad = prioridad;
         this.fechaLimite = fechaLimite;
@@ -43,7 +43,11 @@ public class Tarea {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+    // Un titulo vacio o solo con espacios se guarda como null: asi solo falla
+    // @NotBlank ("obligatorio") y no tambien @Size, que considera valido el null
+    public void setTitulo(String titulo) {
+        this.titulo = (titulo == null || titulo.isBlank()) ? null : titulo.trim();
+    }
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
     public Prioridad getPrioridad() { return prioridad; }

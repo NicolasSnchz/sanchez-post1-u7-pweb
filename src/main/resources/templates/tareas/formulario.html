@@ -19,6 +19,8 @@
     <form th:action="@{/tareas/guardar}" th:object="${tarea}" method="post">
         <!-- Campo oculto para el ID (necesario en edición) -->
         <input type="hidden" th:field="*{id}">
+        <!-- Campo oculto para conservar el estado al editar una tarea ya completada -->
+        <input type="hidden" th:field="*{completada}">
 
         <label for="titulo">Título:</label>
         <input type="text" th:field="*{titulo}" id="titulo">
